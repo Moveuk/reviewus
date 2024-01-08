@@ -1,0 +1,19 @@
+spring:
+  #    datasource:
+  #      url: jdbc:h2:mem:testdb #h2
+  #      driver-class-name: org.h2.Driver
+  #      username: sa
+  #      password:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        orm:
+          jdbc:
+            bind: trace
