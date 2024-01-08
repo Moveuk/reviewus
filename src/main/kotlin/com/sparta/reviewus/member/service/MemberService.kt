@@ -1,13 +1,14 @@
 package com.sparta.reviewus.member.service
 
+import com.sparta.reviewus.member.dto.MemberResponse
 import com.sparta.reviewus.member.dto.ProfileUpdateRequest
 
 interface MemberService {
 
-    fun getMemberProfile(profile: String)
+    fun getMemberProfile(): MemberResponse
 
-    fun getOtherProfile(memberId: Long)
+    fun getOtherProfile(memberId: Long): MemberResponse
 
-    fun updateMemberProfile(profile: String, profileUpdateRequest: ProfileUpdateRequest)
+    fun updateMemberProfile(profileUpdateRequest: ProfileUpdateRequest): MemberResponse
 
 }

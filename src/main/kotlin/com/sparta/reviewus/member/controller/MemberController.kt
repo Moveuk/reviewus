@@ -3,6 +3,7 @@ package com.sparta.reviewus.member.controller
 import com.sparta.reviewus.member.dto.MemberResponse
 import com.sparta.reviewus.member.dto.ProfileUpdateRequest
 import com.sparta.reviewus.member.service.MemberService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -16,25 +17,28 @@ class MemberController(
 ) {
 
     @GetMapping("/profile")
-    fun getMemberProfile(
-        @PathVariable profile: String
-    ):ResponseEntity<MemberResponse>{
-        TODO()
+    fun getMemberProfile():ResponseEntity<MemberResponse>{
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(memberService.getMemberProfile())
     }
 
     @GetMapping("/members/{memberId}")
     fun getOtherProfile(
         @PathVariable memberId: Long
     ):ResponseEntity<MemberResponse>{
-        TODO()
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(memberService.getOtherProfile(memberId))
     }
 
     @PutMapping("/profile")
     fun updateMemberProfile(
-        @PathVariable profile: String,
         @RequestBody profileUpdateRequest: ProfileUpdateRequest
     ):ResponseEntity<MemberResponse>{
-        TODO()
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(memberService.updateMemberProfile(profileUpdateRequest))
     }
 
 
