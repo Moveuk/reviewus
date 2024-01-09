@@ -25,5 +25,5 @@ class Profile (
     val createDate: LocalDateTime = LocalDateTime.now(),
 
     @Column(name="modified_date")
-    val modifiedDate: LocalDateTime = LocalDateTime.now()
+    var modifiedDate: LocalDateTime = LocalDateTime.now()
 )
