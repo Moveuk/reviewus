@@ -43,6 +43,8 @@ class MemberServiceImpl(
 
     @Transactional
     override fun updateMemberProfile(profileUpdateRequest: ProfileUpdateRequest): MemberResponse {
-        TODO()
+        val member = memberRepository.findByIdOrNull(1L) ?: throw ModelNotFoundException("Member", 1L)
+
+        return member.toResponse()
     }
 }
