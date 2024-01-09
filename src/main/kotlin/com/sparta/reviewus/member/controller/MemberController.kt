@@ -1,20 +1,25 @@
 package com.sparta.reviewus.member.controller
 
+import com.sparta.reviewus.member.dto.JoinRequest
 import com.sparta.reviewus.member.dto.MemberResponse
 import com.sparta.reviewus.member.dto.ProfileUpdateRequest
 import com.sparta.reviewus.member.service.MemberService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class MemberController(
     private val memberService: MemberService
 ) {
+
+    @PostMapping("/join")
+    fun join(@Valid @RequestBody joinRequest: JoinRequest):ResponseEntity<String>{
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(memberService.join(joinRequest))
+    }
 
     @GetMapping("/profile")
     fun getMemberProfile():ResponseEntity<MemberResponse>{

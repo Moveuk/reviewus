@@ -7,23 +7,23 @@ import java.time.LocalDateTime
 @Embeddable
 class Profile (
     @Column(name="nickname", nullable = false)
-    var Nicname: String,
+    var nicname: String,
 
     @Column(name="profile_pic_url")
-    var profilePicUrl: String,
+    var profilePicUrl: String = "https://imgur.com/S8jQ6wN",
 
     @Column(name="introduction")
-    var Introduction: String,
+    var introduction: String = "$nicname 님의 자기소개입니다.",
 
     @Column(name="address")
-    var Address: String,
+    var address: String? = null,
 
     @Column(name="interest")
-    var Interest: String,
+    var interest: String? = null,
 
     @Column(name="create_date")
-    val CreateDate: LocalDateTime = LocalDateTime.now(),
+    val createDate: LocalDateTime = LocalDateTime.now(),
 
     @Column(name="modified_date")
-    val ModifiedDate: LocalDateTime = LocalDateTime.now()
+    val modifiedDate: LocalDateTime = LocalDateTime.now()
 )
