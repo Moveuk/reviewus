@@ -29,12 +29,12 @@ class MemberController(
     }
 
     @GetMapping("/members/{memberId}")
-    fun getOtherProfile(
+    fun getOtherMember(
         @PathVariable memberId: Long
     ):ResponseEntity<MemberResponse>{
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(memberService.getOtherProfile(memberId))
+            .body(memberService.getOtherMember(memberId))
     }
 
     @PutMapping("/profile")

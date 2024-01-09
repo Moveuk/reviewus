@@ -1,5 +1,6 @@
 package com.sparta.reviewus.member.model
 
+import com.sparta.reviewus.member.dto.MemberResponse
 import jakarta.persistence.*
 
 @Entity
@@ -23,4 +24,17 @@ class Member(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
+}
+
+fun Member.toResponse(): MemberResponse {
+    return MemberResponse(
+        id = id!!,
+        email = email,
+        name = name,
+        nickname = profile.nickname,
+        profilePicUrl = profile.profilePicUrl,
+        introduction = profile.introduction,
+        address = profile.address,
+        interest = profile.interest
+    )
 }

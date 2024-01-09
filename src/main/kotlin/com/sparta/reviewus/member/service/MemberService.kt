@@ -8,7 +8,7 @@ interface MemberService {
 
     fun getMemberProfile(): MemberResponse
 
-    fun getOtherProfile(memberId: Long): MemberResponse
+    fun getOtherMember(memberId: Long): MemberResponse
 
     fun updateMemberProfile(profileUpdateRequest: ProfileUpdateRequest): MemberResponse
 
