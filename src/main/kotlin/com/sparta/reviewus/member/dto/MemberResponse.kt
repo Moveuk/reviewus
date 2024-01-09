@@ -1,6 +1,8 @@
 package com.sparta.reviewus.member.dto
 
 data class MemberResponse(
+    val id: Long,
+    val email: String,
     val name: String,
     val profilePicUrl: String,
     val nickname: String,
