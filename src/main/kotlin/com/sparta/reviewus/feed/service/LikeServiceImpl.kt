@@ -7,6 +7,7 @@ import com.sparta.reviewus.feed.repository.LikeRepository
 import com.sparta.reviewus.member.repository.MemberRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class LikeServiceImpl(
@@ -15,6 +16,7 @@ class LikeServiceImpl(
     private val feedRepository: FeedRepository
 ): LikeService {
 
+    @Transactional
     override fun like(memberId: Long, feedId: Long): Boolean {
         val member = memberRepository.findByIdOrNull(memberId) ?: throw ModelNotFoundException("Member", memberId)
         val feed = feedRepository.findByIdOrNull(feedId) ?: throw ModelNotFoundException("Feed", feedId)

@@ -7,5 +7,5 @@ interface LikeRepository : JpaRepository<Like, Long>{
 
     fun findByMemberIdAndFeedId(memberId: Long, feedId: Long): Like?
     fun existsByMemberIdAndFeedId(memberId: Long, feedId: Long): Boolean
-    fun deleteByMemberIdAndFeedId(memberId: Long, feedId: Long): Boolean
+    fun deleteByMemberIdAndFeedId(memberId: Long, feedId: Long): Int
 }
