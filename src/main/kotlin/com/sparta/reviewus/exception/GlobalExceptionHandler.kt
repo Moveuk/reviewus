@@ -27,7 +27,7 @@ class GlobalExceptionHandler {
     fun handleModelNotFoundException(e: ModelNotFoundException): ResponseEntity<ErrorResponse> {
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
-            .body(ErrorResponse("해당 프로필이 없습니다."))
+            .body(ErrorResponse(e.message))
     }
 
 }
