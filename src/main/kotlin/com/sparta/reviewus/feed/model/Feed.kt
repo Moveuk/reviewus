@@ -2,7 +2,6 @@ package com.sparta.reviewus.feed.model
 
 import com.sparta.reviewus.member.model.Member
 import jakarta.persistence.*
-import jdk.jfr.Category
 import java.time.LocalDateTime
 
 
@@ -10,7 +9,8 @@ import java.time.LocalDateTime
 @Table(name = "feed")
 class Feed(
 
-    @Column(name = "member_id")
+    @ManyToOne
+    @JoinColumn(name = "member_id", nullable = false)
     var member: Member,
 
     @Column(name = "category")
