@@ -34,7 +34,7 @@ fun Member.toResponse(): MemberResponse {
         nickname = profile.nickname,
         profilePicUrl = profile.profilePicUrl,
         introduction = profile.introduction,
-        address = profile.address!!,
-        interest = profile.interest!!
+        address = profile.address,
+        interest = profile.interest
     )
 }
