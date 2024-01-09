@@ -1,6 +1,8 @@
 package com.sparta.reviewus.feed.model
 
+import com.sparta.reviewus.feed.dto.CreateFeedResponse
 import com.sparta.reviewus.member.model.Member
+import com.sparta.reviewus.member.model.toResponse
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -29,7 +31,7 @@ class Feed(
     var latitude : String?,
 
     @Column(name =  "description")
-    var description : String,
+    var description : String?,
 
     @Column(name = "create_date")
     var createDate : LocalDateTime = LocalDateTime.now(),
@@ -40,4 +42,16 @@ class Feed(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+}
+fun Feed.toResponse(): CreateFeedResponse {
+    return CreateFeedResponse(
+        id = id!!,
+        title = title,
+        description = description,
+        member = member.toResponse(),
+        category = category,
+        feedPicUrl = feedPicUrls,
+        longitude = longitude,
+        latitude = latitude
+    )
 }
