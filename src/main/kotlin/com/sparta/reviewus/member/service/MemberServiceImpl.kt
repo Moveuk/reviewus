@@ -22,7 +22,7 @@ class MemberServiceImpl(
         val (email, password, name, nickname) = joinRequest
 
         //이메일 중복 체크
-        if (memberRepository.existsUserByEmail(email)) throw DuplicatedPropertyException("이메일", email)
+        if (memberRepository.existsMemberByEmail(email)) throw DuplicatedPropertyException("이메일", email)
 
         memberRepository.save(Member(email = email, password = password, name = name, profile = Profile(nickname = nickname)))
         return "회원가입 성공"
