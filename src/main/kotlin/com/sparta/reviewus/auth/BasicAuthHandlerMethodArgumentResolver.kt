@@ -21,7 +21,7 @@ class BasicAuthHandlerMethodArgumentResolver : HandlerMethodArgumentResolver {
     ): BasicAuthMember {
         val (email, password) =
             webRequest.getHeader("Authorization")
-                ?.let { Base64AuthUtil().decodeBasicAuth(it) } ?: throw AuthenticationException("잘못된 인증 방식입니다.")
+                ?.let { Base64AuthUtil.decodeBasicAuth(it) } ?: throw AuthenticationException("잘못된 인증 방식입니다.")
 
         return BasicAuthMember(email, password)
     }
