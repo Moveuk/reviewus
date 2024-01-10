@@ -9,6 +9,7 @@ import com.sparta.reviewus.domain.feed.repository.FeedRepository
 import com.sparta.reviewus.domain.member.repository.MemberRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 
 @Service
@@ -16,6 +17,7 @@ class FeedServiceImpl(
     private val feedRepository: FeedRepository,
     private val memberRepository: MemberRepository
 ) : FeedService {
+    @Transactional
     override fun createFeed(request: CreateFeedRequest): CreateFeedResponse {
         val member = memberRepository.findByIdOrNull(request.memberId) ?: throw ModelNotFoundException("Member",request.memberId) //이거는 무슨일을 하는 코드
         return feedRepository.save(
@@ -31,4 +33,17 @@ class FeedServiceImpl(
         ).toResponse()
     }
 
+    override fun getFeedList(): List<CreateFeedResponse> {
+        return feedRepository.findAll().map { it. toResponse()}
+    }
+
+    override fun getFeedById(id: Long): CreateFeedResponse {
+        val feed = feedRepository.findByIdOrNull(id) ?: throw ModelNotFoundException("feed", id)
+        return feed.toResponse()
+    }
+    @Transactional
+    override fun deleteFeed(id: Long) {
+        val feed = feedRepository.findByIdOrNull(id) ?: throw ModelNotFoundException("feed", id)
+        feedRepository.delete(feed)
+    }
 }
