@@ -19,7 +19,7 @@ class FeedServiceImpl(
 ) : FeedService {
     @Transactional
     override fun createFeed(request: CreateFeedRequest): CreateFeedResponse {
-        val member = memberRepository.findByIdOrNull(request.memberId) ?: throw ModelNotFoundException("Member",request.memberId) //이거는 무슨일을 하는 코드
+        val member = memberRepository.findByIdOrNull(request.memberId) ?: throw ModelNotFoundException("Member",request.memberId)
         return feedRepository.save(
             Feed(
                 title = request.title,
@@ -33,7 +33,7 @@ class FeedServiceImpl(
         ).toResponse()
     }
 
-    override fun getFeedList(): List<CreateFeedResponse> {
+    override fun getFeeds(): List<CreateFeedResponse> {
         return feedRepository.findAll().map { it. toResponse()}
     }
 

@@ -19,7 +19,7 @@ class FeedController(
     fun getFeedList() : ResponseEntity<List<CreateFeedResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(feedService.getFeedList())
+            .body(feedService.getFeeds())
     }
 
     @GetMapping("/{feedId}")

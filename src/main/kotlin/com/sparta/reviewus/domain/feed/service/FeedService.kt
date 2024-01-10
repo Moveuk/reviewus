@@ -6,7 +6,7 @@ import com.sparta.reviewus.domain.feed.dto.CreateFeedResponse
 interface FeedService {
     fun createFeed(request: CreateFeedRequest): CreateFeedResponse
 
-    fun getFeedList(): List<CreateFeedResponse>
+    fun getFeeds(): List<CreateFeedResponse>
 
     fun getFeedById(id: Long): CreateFeedResponse
 
