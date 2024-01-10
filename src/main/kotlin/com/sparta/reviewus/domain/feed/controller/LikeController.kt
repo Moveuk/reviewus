@@ -21,4 +21,10 @@ class LikeController(
 
         return ResponseEntity.ok(message)
     }
+
+    @GetMapping("/count")
+    fun countLikes(@PathVariable feedId: Long): ResponseEntity<Int> {
+        val likesCount = likeService.countLikes(feedId)
+        return ResponseEntity.ok(likesCount)
+    }
 }
