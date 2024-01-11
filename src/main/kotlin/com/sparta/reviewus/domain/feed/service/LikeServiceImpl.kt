@@ -37,4 +37,7 @@ class LikeServiceImpl(
 
     }
 
+    override fun countLikes(feedId: Long): Int {
+        return likeRepository.countByFeedId(feedId)
+    }
 }
