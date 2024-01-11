@@ -1,6 +1,7 @@
 package com.sparta.reviewus.domain.member.controller
 
 import com.sparta.reviewus.domain.member.dto.JoinRequest
+import com.sparta.reviewus.domain.member.dto.LoginRequest
 import com.sparta.reviewus.domain.member.dto.MemberResponse
 import com.sparta.reviewus.domain.member.dto.ProfileUpdateRequest
 import com.sparta.reviewus.domain.member.service.MemberService
@@ -19,6 +20,13 @@ class MemberController(
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(memberService.join(joinRequest))
+    }
+
+    @PostMapping("/login")
+    fun login(@Valid @RequestBody loginRequest: LoginRequest):ResponseEntity<String>{
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(memberService.login(loginRequest))
     }
 
     @GetMapping("/profile")
