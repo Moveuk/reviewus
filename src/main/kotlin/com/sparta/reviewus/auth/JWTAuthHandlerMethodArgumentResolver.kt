@@ -27,7 +27,6 @@ class JWTAuthHandlerMethodArgumentResolver(
         val authorizationHeader =
             webRequest.getHeader("Authorization") ?: throw AuthenticationException("잘못된 인증 방식입니다.")
 
-        println(authorizationHeader)
         return JWTUtil.getTokenFromAuthorizationHeader(authorizationHeader)
             .let { token ->
                 if (!JWTUtil.isValidToken(token))

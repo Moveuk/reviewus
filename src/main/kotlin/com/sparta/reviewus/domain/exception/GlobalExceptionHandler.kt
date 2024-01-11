@@ -1,7 +1,6 @@
 package com.sparta.reviewus.domain.exception
 
 import com.sparta.reviewus.domain.exception.dto.ErrorResponse
-import com.sparta.reviewus.domain.exception.member.BadCredentialsException
 import com.sparta.reviewus.domain.exception.reply.WrongPasswordException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -29,13 +28,6 @@ class GlobalExceptionHandler {
     fun handleModelNotFoundException(e: ModelNotFoundException): ResponseEntity<ErrorResponse> {
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
-            .body(ErrorResponse(e.message))
-    }
-
-    @ExceptionHandler(BadCredentialsException::class)
-    fun handleModelNotFoundException(e: BadCredentialsException): ResponseEntity<ErrorResponse> {
-        return ResponseEntity
-            .status(HttpStatus.BAD_REQUEST)
             .body(ErrorResponse(e.message))
     }
 
