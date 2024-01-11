@@ -1,10 +1,8 @@
 package com.sparta.reviewus.domain.member.controller
 
-import com.sparta.reviewus.domain.member.dto.JoinRequest
-import com.sparta.reviewus.domain.member.dto.LoginRequest
-import com.sparta.reviewus.domain.member.dto.MemberResponse
-import com.sparta.reviewus.domain.member.dto.ProfileUpdateRequest
+import com.sparta.reviewus.domain.member.dto.*
 import com.sparta.reviewus.domain.member.service.MemberService
+import io.swagger.v3.oas.annotations.Parameter
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -30,10 +28,12 @@ class MemberController(
     }
 
     @GetMapping("/profile")
-    fun getMemberProfile():ResponseEntity<MemberResponse>{
+    fun getMemberProfile(
+        @Parameter(hidden = true) authenticatedMember: AuthenticatedMember
+    ):ResponseEntity<MemberResponse>{
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(memberService.getMemberProfile())
+            .body(memberService.getMemberProfile(authenticatedMember))
     }
 
     @GetMapping("/members/{memberId}")
@@ -47,11 +47,12 @@ class MemberController(
 
     @PutMapping("/profile")
     fun updateMemberProfile(
-        @RequestBody profileUpdateRequest: ProfileUpdateRequest
+        @Parameter(hidden = true) authenticatedMember: AuthenticatedMember,
+        @RequestBody @Valid profileUpdateRequest: ProfileUpdateRequest
     ):ResponseEntity<MemberResponse>{
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(memberService.updateMemberProfile(profileUpdateRequest))
+            .body(memberService.updateMemberProfile(authenticatedMember, profileUpdateRequest))
     }
 
 

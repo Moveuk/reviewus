@@ -1,13 +1,10 @@
 package com.sparta.reviewus.domain.member.service
 
+import com.sparta.reviewus.auth.exception.BadCredentialsException
 import com.sparta.reviewus.common.JWTUtil
 import com.sparta.reviewus.domain.exception.DuplicatedPropertyException
 import com.sparta.reviewus.domain.exception.ModelNotFoundException
-import com.sparta.reviewus.auth.exception.BadCredentialsException
-import com.sparta.reviewus.domain.member.dto.JoinRequest
-import com.sparta.reviewus.domain.member.dto.LoginRequest
-import com.sparta.reviewus.domain.member.dto.MemberResponse
-import com.sparta.reviewus.domain.member.dto.ProfileUpdateRequest
+import com.sparta.reviewus.domain.member.dto.*
 import com.sparta.reviewus.domain.member.model.Member
 import com.sparta.reviewus.domain.member.model.Profile
 import com.sparta.reviewus.domain.member.model.toResponse
@@ -41,8 +38,8 @@ class MemberServiceImpl(
         return JWTUtil.generateToken(authenticatedMember.email)
     }
 
-    override fun getMemberProfile(): MemberResponse {
-        val member = memberRepository.findByIdOrNull(1L) ?: throw ModelNotFoundException("Member", 1L)
+    override fun getMemberProfile(authenticatedMember: AuthenticatedMember): MemberResponse {
+        val member = memberRepository.findByIdOrNull(authenticatedMember.id) ?: throw ModelNotFoundException("Member", authenticatedMember.id)
 
         return member.toResponse()
 
@@ -55,13 +52,12 @@ class MemberServiceImpl(
     }
 
     @Transactional
-    override fun updateMemberProfile(profileUpdateRequest: ProfileUpdateRequest): MemberResponse {
+    override fun updateMemberProfile(authenticatedMember: AuthenticatedMember, profileUpdateRequest: ProfileUpdateRequest): MemberResponse {
 
-        val member = memberRepository.findByIdOrNull(profileUpdateRequest.id) ?: throw ModelNotFoundException("Member", profileUpdateRequest.id)
+        val member = memberRepository.findByIdOrNull(authenticatedMember.id) ?: throw ModelNotFoundException("Member", authenticatedMember.id)
 
-        val (id, name, profilePicUrl, nickname, password, introduction, address, interest) = profileUpdateRequest
+        val (name, profilePicUrl, nickname, password, introduction, address, interest) = profileUpdateRequest
 
-        member.id = id
         member.name = name
         member.profile.profilePicUrl = profilePicUrl
         member.profile.nickname = nickname
