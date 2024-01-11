@@ -1,6 +1,7 @@
 package com.sparta.reviewus.domain.feed.model
 
 import com.sparta.reviewus.domain.feed.dto.ReplyResponse
+import com.sparta.reviewus.domain.member.model.Member
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -19,6 +20,10 @@ class Reply(
 
     @Column(name = " modified_date")
     var modifiedDate: LocalDateTime = LocalDateTime.now(),
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    val member: Member,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feed_id")

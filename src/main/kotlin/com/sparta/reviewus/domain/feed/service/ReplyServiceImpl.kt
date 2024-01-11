@@ -10,14 +10,17 @@ import com.sparta.reviewus.domain.feed.model.Reply
 import com.sparta.reviewus.domain.feed.model.toResponse
 import com.sparta.reviewus.domain.feed.repository.FeedRepository
 import com.sparta.reviewus.domain.feed.repository.ReplyRepository
+import com.sparta.reviewus.domain.member.repository.MemberRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class ReplyServiceImpl(
     private val feedRepository: FeedRepository,
     private val replyRepository: ReplyRepository,
+    private val memberRepository: MemberRepository,
 ) : ReplyService {
     @Transactional
     override fun addReply(
@@ -26,11 +29,14 @@ class ReplyServiceImpl(
     ): ReplyResponse {
         val feed = feedRepository.findByIdOrNull(feedId)
             ?: throw ModelNotFoundException("feed", feedId)
+        val member = memberRepository.findByIdOrNull(addReplyRequest.memberId)
+            ?: throw ModelNotFoundException("member", addReplyRequest.memberId)
 
         val reply = Reply(
             password = addReplyRequest.password,
             content = addReplyRequest.content,
-            feed = feed
+            feed = feed,
+            member = member
         )
         return replyRepository.save(reply).toResponse()
     }
@@ -46,9 +52,10 @@ class ReplyServiceImpl(
 
         if (reply.password != request.password)
             throw WrongPasswordException()
-        else {
-            reply.content = request.content
-        }
+
+        reply.content = request.content
+        reply.modifiedDate = LocalDateTime.now()
+
         return replyRepository.save(reply).toResponse()
     }
 
@@ -63,8 +70,7 @@ class ReplyServiceImpl(
 
         if (reply.password != request.password)
             throw WrongPasswordException()
-        else {
-            replyRepository.delete(reply)
-        }
+
+        replyRepository.delete(reply)
     }
 }

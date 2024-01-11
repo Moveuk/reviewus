@@ -7,7 +7,10 @@ import com.sparta.reviewus.domain.feed.dto.UpdateReplyRequest
 
 interface ReplyService {
 
-    fun addReply(feedId: Long, addReplyRequest: AddReplyRequest): ReplyResponse
+    fun addReply(
+        feedId: Long,
+        addReplyRequest: AddReplyRequest
+    ): ReplyResponse
 
     fun updateReply(
         feedId: Long,
