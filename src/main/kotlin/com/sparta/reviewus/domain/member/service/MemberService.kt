@@ -1,6 +1,7 @@
 package com.sparta.reviewus.domain.member.service
 
 import com.sparta.reviewus.domain.member.dto.JoinRequest
+import com.sparta.reviewus.domain.member.dto.LoginRequest
 import com.sparta.reviewus.domain.member.dto.MemberResponse
 import com.sparta.reviewus.domain.member.dto.ProfileUpdateRequest
 
@@ -13,5 +14,7 @@ interface MemberService {
     fun updateMemberProfile(profileUpdateRequest: ProfileUpdateRequest): MemberResponse
 
     fun join(joinRequest: JoinRequest): String
+
+    fun login(loginRequest: LoginRequest): String
 
 }
