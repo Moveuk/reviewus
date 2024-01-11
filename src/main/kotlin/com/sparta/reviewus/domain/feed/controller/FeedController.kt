@@ -16,13 +16,17 @@ class FeedController(
 
 
     @GetMapping
-    fun getFeedList() {
-        TODO()
+    fun getFeedList() : ResponseEntity<List<CreateFeedResponse>> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(feedService.getFeeds())
     }
 
     @GetMapping("/{feedId}")
-    fun getFeed(@PathVariable feedId: Long) {
-        TODO()
+    fun getFeed(@PathVariable feedId: Long): ResponseEntity<CreateFeedResponse> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(feedService.getFeedById(feedId))
     }
 
     @PostMapping
@@ -36,9 +40,12 @@ class FeedController(
 //    fun updateFeed(@PathVariable feedId: Long, @RequestBody updateFeedRequest: UpdateFeedRequest) {
 //    }
 
-    @DeleteMapping("/{feedId}")
-    fun deleteFeed(@PathVariable feedId: Long) {
-        TODO()
+    @DeleteMapping("/delete/{feedId}")
+    fun deleteFeed(@PathVariable feedId: Long):ResponseEntity<Unit> {
+        feedService.deleteFeed(feedId)
+        return ResponseEntity
+            .status(HttpStatus.NO_CONTENT)
+            .build()
     }
 
 
