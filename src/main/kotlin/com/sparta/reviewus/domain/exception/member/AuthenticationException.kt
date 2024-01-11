@@ -1,4 +1,4 @@
-package com.sparta.reviewus.auth.exception
+package com.sparta.reviewus.domain.exception.member
 
 open class AuthenticationException(override val message: String) :
     RuntimeException(message)

@@ -14,9 +14,9 @@ class SwaggerConfig {
     @Bean
     fun openAPI(): OpenAPI = OpenAPI()
         .components(
-            Components().addSecuritySchemes("bearerAuth", bearerAuth())
+            Components().addSecuritySchemes("basicAuth", basicAuth())
         )
-        .addSecurityItem(bearerAuthSecurityItem())
+        .addSecurityItem(securityItem())
         .info(
             Info()
                 .title("ReviewUs API")
@@ -26,9 +26,5 @@ class SwaggerConfig {
 
     private fun basicAuth() = SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")
 
-    private fun basicAuthSecurityItem() = SecurityRequirement().addList("basicAuth")
-
-    private fun bearerAuth() = SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer")
-
-    private fun bearerAuthSecurityItem() = SecurityRequirement().addList("bearerAuth")
+    private fun securityItem() = SecurityRequirement().addList("basicAuth")
 }
