@@ -20,7 +20,7 @@ data class ProfileUpdateRequest(
         message = "비밀번호는 최소 8자 이상, 숫자, 문자, 특수문자를 포함해야 합니다. 공백은 포함하지 않습니다.")
     val password: String,
 
-    @field:Size(max = 1000, message = "글의 길이는 1000자 이하 여야 합니다..")
+    @field:Size(max = 1000, message = "글의 길이는 1000자 이하 여야 합니다.")
     val introduction: String,
 
     val address: String,
