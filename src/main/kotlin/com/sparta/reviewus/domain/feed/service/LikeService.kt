@@ -4,4 +4,6 @@ interface LikeService {
 
     fun like(memberId: Long, feedId: Long): Boolean
 
+    fun countLikes(feedId: Long): Int
+
 }
