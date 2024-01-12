@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.Parameter
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping("/feed/{feedId}/like")
+@RequestMapping("/feeds/{feedId}/likes")
 @RestController
 class LikeController(
     private val likeService: LikeService
@@ -24,7 +24,7 @@ class LikeController(
         return ResponseEntity.ok(message)
     }
 
-    @GetMapping("/count")
+    @GetMapping
     fun countLikes(@PathVariable feedId: Long): ResponseEntity<Int> {
         val likesCount = likeService.countLikes(feedId)
         return ResponseEntity.ok(likesCount)
