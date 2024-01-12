@@ -10,6 +10,9 @@ import java.time.LocalDateTime
 @Table(name = "feed")
 class Feed(
 
+    @OneToMany(mappedBy = "feed", cascade = [CascadeType.ALL])
+    var replies: MutableList<Reply> = mutableListOf(),
+
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     var member: Member,
@@ -52,6 +55,6 @@ fun Feed.toResponse(): FeedResponse {
         category = category,
         feedPicUrl = feedPicUrls,
         longitude = longitude,
-        latitude = latitude
+        latitude = latitude,
     )
 }

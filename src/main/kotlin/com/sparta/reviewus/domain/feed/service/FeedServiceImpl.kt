@@ -10,7 +10,6 @@ import com.sparta.reviewus.domain.feed.model.Feed
 import com.sparta.reviewus.domain.feed.model.toResponse
 import com.sparta.reviewus.domain.feed.repository.FeedRepository
 import com.sparta.reviewus.domain.member.dto.AuthenticatedMember
-import com.sparta.reviewus.domain.member.model.toResponse
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -39,12 +38,14 @@ class FeedServiceImpl(
             title = feed.title,
             description = feed.description,
             nickname = feed.member.profile.nickname,
+            createDate = feed.createDate,
             category = feed.category,
             feedPicUrl = feed.feedPicUrls,
             longitude = feed.longitude,
             latitude = feed.latitude,
             likeCount = countLikes,
-            likedByCurrentUser = isLiked
+            likedByCurrentUser = isLiked,
+            replies = feed.replies.map { it.toResponse() }
         )
     }
 
