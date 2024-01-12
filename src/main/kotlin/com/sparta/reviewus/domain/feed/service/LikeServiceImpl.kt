@@ -16,7 +16,7 @@ class LikeServiceImpl(
     private val feedRepository: FeedRepository
 ): LikeService {
 
-    @Transactional // false -> true // true -> false
+    @Transactional
     override fun like(authenticatedMember: AuthenticatedMember, feedId: Long): Boolean {
 
         val feed = feedRepository.findByIdOrNull(feedId) ?: throw ModelNotFoundException("Feed", feedId)
