@@ -30,11 +30,13 @@ class ReplyServiceImpl(
     ): ReplyResponse {
         val feed = feedRepository.findByIdOrNull(feedId)
             ?: throw ModelNotFoundException("feed", feedId)
+        val parentReply = replyRepository.findByIdOrNull(addReplyRequest.parentId)
 
         val reply = Reply(
             password = addReplyRequest.password,
             content = addReplyRequest.content,
             feed = feed,
+            parent = parentReply,
             member = authenticatedMember.toMember()
         )
         return replyRepository.save(reply).toResponse()
