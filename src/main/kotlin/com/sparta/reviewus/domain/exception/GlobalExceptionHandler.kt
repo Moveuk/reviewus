@@ -37,4 +37,11 @@ class GlobalExceptionHandler {
             .status(HttpStatus.BAD_REQUEST)
             .body(ErrorResponse(e.message))
     }
+
+    @ExceptionHandler(AuthorizationException::class)
+    fun handleAuthorizationException(e: AuthorizationException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(e.message))
+    }
 }
