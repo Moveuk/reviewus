@@ -1,6 +1,8 @@
 package com.sparta.reviewus.domain.feed.controller
 
 import com.sparta.reviewus.domain.feed.service.LikeService
+import com.sparta.reviewus.domain.member.dto.AuthenticatedMember
+import io.swagger.v3.oas.annotations.Parameter
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -13,10 +15,10 @@ class LikeController(
     @PostMapping
     fun like(
         @PathVariable feedId: Long,
-        @RequestParam memberId: Long,
+        @Parameter(hidden = true) authenticatedMember: AuthenticatedMember
     ): ResponseEntity<String>{
 
-        val isLiked = likeService.like(memberId, feedId)
+        val isLiked = likeService.like(authenticatedMember, feedId)
         val message = if(isLiked) "좋아요를 눌렀습니다" else "좋아요가 취소되었습니다"
 
         return ResponseEntity.ok(message)
