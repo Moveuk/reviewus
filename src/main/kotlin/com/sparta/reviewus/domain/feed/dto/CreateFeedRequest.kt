@@ -1,8 +1,10 @@
 package com.sparta.reviewus.domain.feed.dto
 
+import com.sparta.reviewus.domain.feed.model.Category
+
 data class CreateFeedRequest(
     val memberId : Long,
-    val category : String,
+    val category : Category,
     val title : String,
     val feedPicUrl : String,
     val longitude : String?,

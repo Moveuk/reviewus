@@ -1,6 +1,6 @@
 package com.sparta.reviewus.domain.feed.model
 
-import com.sparta.reviewus.domain.feed.dto.CreateFeedResponse
+import com.sparta.reviewus.domain.feed.dto.FeedResponse
 import com.sparta.reviewus.domain.member.model.Member
 import com.sparta.reviewus.domain.member.model.toResponse
 import jakarta.persistence.*
@@ -15,8 +15,9 @@ class Feed(
     @JoinColumn(name = "member_id", nullable = false)
     var member: Member,
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    var category: String,
+    var category: Category,
 
     @Column(name = "title")
     var title : String,
@@ -43,8 +44,8 @@ class Feed(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 }
-fun Feed.toResponse(): CreateFeedResponse {
-    return CreateFeedResponse(
+fun Feed.toResponse(): FeedResponse {
+    return FeedResponse(
         id = id!!,
         title = title,
         description = description,
