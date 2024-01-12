@@ -8,7 +8,6 @@ import com.sparta.reviewus.domain.feed.dto.UpdateFeedRequest
 import com.sparta.reviewus.domain.feed.model.Feed
 import com.sparta.reviewus.domain.feed.model.toResponse
 import com.sparta.reviewus.domain.feed.repository.FeedRepository
-import com.sparta.reviewus.domain.member.model.toResponse
 import com.sparta.reviewus.domain.member.repository.MemberRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -57,7 +56,7 @@ class FeedServiceImpl(
             id = id!!,
             title = feed.title,
             description = feed.description,
-            member = feed.member.toResponse(),
+            nickname = feed.member.profile.nickname,
             category = feed.category,
             feedPicUrl = feed.feedPicUrls,
             longitude = feed.longitude,
