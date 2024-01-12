@@ -2,11 +2,13 @@ package com.sparta.reviewus.domain.feed.service
 
 import com.sparta.reviewus.domain.exception.ModelNotFoundException
 import com.sparta.reviewus.domain.feed.dto.CreateFeedRequest
+import com.sparta.reviewus.domain.feed.dto.FeedByIdResponse
 import com.sparta.reviewus.domain.feed.dto.FeedResponse
 import com.sparta.reviewus.domain.feed.dto.UpdateFeedRequest
 import com.sparta.reviewus.domain.feed.model.Feed
 import com.sparta.reviewus.domain.feed.model.toResponse
 import com.sparta.reviewus.domain.feed.repository.FeedRepository
+import com.sparta.reviewus.domain.member.model.toResponse
 import com.sparta.reviewus.domain.member.repository.MemberRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -16,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class FeedServiceImpl(
     private val feedRepository: FeedRepository,
-    private val memberRepository: MemberRepository
+    private val memberRepository: MemberRepository,
+    private val likeService: LikeService
 ) : FeedService {
     @Transactional
     override fun createFeed(request: CreateFeedRequest): FeedResponse {
@@ -41,9 +44,27 @@ class FeedServiceImpl(
         return feedRepository.findAll().map { it.toResponse() }
     }
 
-    override fun getFeedById(id: Long): FeedResponse {
+    override fun getFeedById(id: Long, memberId:Long?): FeedByIdResponse {
         val feed = feedRepository.findByIdOrNull(id) ?: throw ModelNotFoundException("feed", id)
-        return feed.toResponse()
+
+        val countLikes = likeService.countLikes(id)
+
+
+        val isLiked = if (memberId != null) likeService.isLiked(memberId, id)
+        else false
+
+        return FeedByIdResponse(
+            id = id!!,
+            title = feed.title,
+            description = feed.description,
+            member = feed.member.toResponse(),
+            category = feed.category,
+            feedPicUrl = feed.feedPicUrls,
+            longitude = feed.longitude,
+            latitude = feed.latitude,
+            likeCount = countLikes,
+            likedByCurrentUser = isLiked
+        )
     }
 
     @Transactional
