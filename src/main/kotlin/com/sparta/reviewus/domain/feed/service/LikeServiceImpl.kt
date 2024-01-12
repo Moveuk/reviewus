@@ -21,7 +21,7 @@ class LikeServiceImpl(
 
         val feed = feedRepository.findByIdOrNull(feedId) ?: throw ModelNotFoundException("Feed", feedId)
 
-        //TODO 좋아요 본인만 추가 할 수 있게 구현
+        //좋아요 본인만 추가 할 수 있음
         if(feed.member.id == authenticatedMember.id) {
             throw UnauthorizedOperationException("자신의 글에는 좋아요를 누를 수 없습니다.")
         }

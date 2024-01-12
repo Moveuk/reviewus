@@ -38,7 +38,7 @@ class FeedServiceImpl(
             id = feedId!!,
             title = feed.title,
             description = feed.description,
-            member = feed.member.toResponse(),
+            nickname = feed.member.profile.nickname,
             category = feed.category,
             feedPicUrl = feed.feedPicUrls,
             longitude = feed.longitude,

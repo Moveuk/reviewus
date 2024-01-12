@@ -2,7 +2,6 @@ package com.sparta.reviewus.domain.feed.model
 
 import com.sparta.reviewus.domain.feed.dto.FeedResponse
 import com.sparta.reviewus.domain.member.model.Member
-import com.sparta.reviewus.domain.member.model.toResponse
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -49,7 +48,7 @@ fun Feed.toResponse(): FeedResponse {
         id = id!!,
         title = title,
         description = description,
-        member = member.toResponse(),
+        nickname = member.profile.nickname,
         category = category,
         feedPicUrl = feedPicUrls,
         longitude = longitude,
