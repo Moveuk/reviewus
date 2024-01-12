@@ -23,9 +23,10 @@ class JWTAuthHandlerMethodArgumentResolver(
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?,
-    ): AuthenticatedMember {
-        val authorizationHeader =
-            webRequest.getHeader("Authorization") ?: throw AuthenticationException("잘못된 인증 방식입니다.")
+    ): AuthenticatedMember? {
+        val authorizationHeader = webRequest.getHeader("Authorization")
+
+        if (authorizationHeader == null || authorizationHeader == "") return null
 
         return JWTUtil.getTokenFromAuthorizationHeader(authorizationHeader)
             .let { token ->
