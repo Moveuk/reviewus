@@ -9,6 +9,7 @@ import com.sparta.reviewus.domain.feed.dto.UpdateFeedRequest
 import com.sparta.reviewus.domain.feed.model.Feed
 import com.sparta.reviewus.domain.feed.model.toResponse
 import com.sparta.reviewus.domain.feed.repository.FeedRepository
+import com.sparta.reviewus.domain.feed.repository.ReplyRepository
 import com.sparta.reviewus.domain.member.dto.AuthenticatedMember
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class FeedServiceImpl(
     private val feedRepository: FeedRepository,
+    private val replyRepository: ReplyRepository,
     private val likeService: LikeService
 ) : FeedService {
 
@@ -27,6 +29,7 @@ class FeedServiceImpl(
 
     override fun getFeedById(feedId: Long, authenticatedMember: AuthenticatedMember?): FeedByIdResponse {
         val feed = feedRepository.findByIdOrNull(feedId) ?: throw ModelNotFoundException("feed", feedId)
+        val parentReply = replyRepository.findByFeedIdAndParentIsNull(feedId)
 
         val countLikes = likeService.countLikes(feedId)
 
@@ -45,7 +48,7 @@ class FeedServiceImpl(
             latitude = feed.latitude,
             likeCount = countLikes,
             likedByCurrentUser = isLiked,
-            replies = feed.replies.map { it.toResponse() }
+            replies = parentReply.map { it.toResponse() }
         )
     }
 

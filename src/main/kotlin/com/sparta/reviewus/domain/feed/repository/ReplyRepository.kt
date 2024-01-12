@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface ReplyRepository: JpaRepository<Reply, Long> {
 
     fun findByFeedIdAndId(feedId: Long, replyId: Long): Reply?
+
+    fun findByFeedIdAndParentIsNull(feedId: Long): List<Reply>
 }
 
