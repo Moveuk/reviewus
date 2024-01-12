@@ -1,6 +1,7 @@
 package com.sparta.reviewus.domain.feed.controller
 
 import com.sparta.reviewus.domain.feed.dto.CreateFeedRequest
+import com.sparta.reviewus.domain.feed.dto.FeedByIdResponse
 import com.sparta.reviewus.domain.feed.dto.FeedResponse
 import com.sparta.reviewus.domain.feed.dto.UpdateFeedRequest
 import com.sparta.reviewus.domain.feed.service.FeedService
@@ -24,10 +25,10 @@ class FeedController(
     }
 
     @GetMapping("/{feedId}")
-    fun getFeed(@PathVariable feedId: Long): ResponseEntity<FeedResponse> {
+    fun getFeed(@PathVariable feedId: Long, @RequestBody memberId:Long?): ResponseEntity<FeedByIdResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(feedService.getFeedById(feedId))
+            .body(feedService.getFeedById(feedId, memberId))
     }
 
     @PostMapping

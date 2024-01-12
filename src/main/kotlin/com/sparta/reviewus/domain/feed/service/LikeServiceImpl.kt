@@ -16,10 +16,12 @@ class LikeServiceImpl(
     private val feedRepository: FeedRepository
 ): LikeService {
 
-    @Transactional
+    @Transactional // false -> true // true -> false
     override fun like(memberId: Long, feedId: Long): Boolean {
         val member = memberRepository.findByIdOrNull(memberId) ?: throw ModelNotFoundException("Member", memberId)
         val feed = feedRepository.findByIdOrNull(feedId) ?: throw ModelNotFoundException("Feed", feedId)
+
+        //TODO 좋아요 본인만 추가 할 수 있게 구현
 
 
         //이미 좋아요를 눌렀었는지 확인하고 있다면 삭제
@@ -37,7 +39,11 @@ class LikeServiceImpl(
 
     }
 
-    override fun countLikes(feedId: Long): Int {
+    override fun countLikes(feedId: Long): Int { // 숫자
         return likeRepository.countByFeedId(feedId)
+    }
+
+    override fun isLiked(feedId: Long, memberId: Long): Boolean{
+        return likeRepository.existsByMemberIdAndFeedId(memberId, feedId)
     }
 }
