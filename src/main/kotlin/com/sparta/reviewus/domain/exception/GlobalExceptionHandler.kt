@@ -43,4 +43,18 @@ class GlobalExceptionHandler {
             .status(HttpStatus.BAD_REQUEST)
             .body(ErrorResponse(e.message))
     }
+
+    @ExceptionHandler(EmailAlreadyVerifiedException::class)
+    fun handleEmailAlreadyVerifiedException(e:EmailAlreadyVerifiedException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(e.message))
+    }
+
+    @ExceptionHandler(EmailVerificationFailedException::class)
+    fun handleEmailVerificationFailedException(e:EmailVerificationFailedException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(e.message))
+    }
 }
