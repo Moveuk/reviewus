@@ -9,8 +9,11 @@
 |:----------:|:----------:|:----------:|:----------:|
 |![image](https://github.com/Moveuk/reviewus/assets/84966961/8666e7b4-4b6a-43a1-afaf-5492888384b3)|![image](https://github.com/Moveuk/reviewus/assets/84966961/9c5971ff-d2f3-42cd-a89d-b8c8f910271a)|![image](https://github.com/Moveuk/reviewus/assets/84966961/8bd2ab00-d030-4b1e-88b4-f023c10acbc1)|![image](https://github.com/Moveuk/reviewus/assets/84966961/c7f575c7-6564-4338-b403-b0a618567f5d)|
 
-## ⚙️ Backend
+## ⚙️ Backend Stack
 
+<img src="https://img.shields.io/badge/kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white"> 
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
+<img src="https://img.shields.io/badge/amazonsimpleemailservice-DD344C?style=for-the-badge&logo=amazonsimpleemailservice&logoColor=white"> 
 
 
 ## 와이어 프레임 구상
@@ -23,6 +26,8 @@
 ![image](https://github.com/Moveuk/reviewus/assets/84966961/26480312-df73-4a41-93e2-a6c9b34cc1ad)
 
 ## 패키지 구조
+
+![image](https://github.com/Moveuk/reviewus/assets/84966961/b9ad62da-a880-448d-8ccf-e6a3d77c56be)
 
 ## 기능 
 - [x]  게시물 CRUD 기능 **→ 이제원님**
